@@ -1,1 +1,10 @@
-U
+### Actor和Component
+- Actor之间的不同主要由Component决定，可以让Actor继承各种Component来定制独特的Actor组件。
+### Level和World
+- Level可以理解为存放Actor的容器，其本身也是一个Actor。
+- World由一个或多个Level组成，这些Level中有一个主Level称为PersistentLevel，它会在world生成时最先生成，玩家就出生在这里。而WorldSetting也以PersistentLevel为主。
+- 在多个Level组成一个World后会发现，在WorldOutlinear中可以看见所有Level的Actor对象，这些Actor的物理实体都在World里。
+- 编辑器，编辑窗口，以及点击播放口形成的演示窗口本质上都是一个个World。
+### WorldContext和GameInstance
+- WorldContext保存着切换World时的上下文信息，以及Level的切换信息。之所以不直接保存到World中是因为当我们OpenLevel一个新的PersistentLevel时，会先释放掉当前的World再新建一个，如果把下一个Level的信息放到World中，则需要在释放World前拷贝一下这个信息，影响性能。而LoadStreamLevel时则不会有这个问题。
+- GameInstance用来存储WorldContext和其他整个游戏的信息，它是一个比World更高的层次。
